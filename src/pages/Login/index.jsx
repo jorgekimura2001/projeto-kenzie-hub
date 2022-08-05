@@ -5,6 +5,8 @@ import {yupResolver} from '@hookform/resolvers/yup'
 import { useHistory } from "react-router-dom"
 import { api } from "../../services/api"
 import { toast } from 'react-toastify';
+import { Container, ContainerLogin, ContainerRegister } from "./styles.js"
+import logo from '../../assets/logo.svg'
 
 function Login({setUser}){
 
@@ -13,11 +15,6 @@ function Login({setUser}){
     const formSchema = yup.object({
         email: yup.string().required('Email é obrigatório').email('Email inválido'),
         password: yup.string().required('Senha é obrigatória')
-        // .matches('[A-Z]', "Deve conter ao menos 1 letra maiúscula")
-        // .matches('([a-z])', "Deve conter ao menos 1 letra minúscula")
-        // .matches('([0-9])', "Deve conter ao menos 1 número")
-        // .matches('(\W)|_', "Deve conter ao menos 1 caracter especial")
-        // .matches('.{8,}', "Deve conter ao menos 8 caracteres"),
     })
 
     const {register, handleSubmit, formState: {errors}} = useForm({
@@ -47,7 +44,7 @@ function Login({setUser}){
         })
         .catch(err => {
             console.log(err)
-            toast.error('Email ou senha incorretos', {
+            toast.error('Email e/ou senha incorreta', {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -60,21 +57,25 @@ function Login({setUser}){
     }
 
     return (
-        <>
-        <Form onSubmit={handleSubmit(onSubmit)}>
-            <label htmlFor="email">Email</label>
-            <input type="text" id="email" {...register('email')}/>
-            <p>{errors.email?.message}</p>
-            <label htmlFor="password">Senha</label>
-            <input type="text" id="password" {...register('password')}/>
-            <p>{errors.password?.message}</p>
-            <button type="submit">Entrar</button>
-        </Form>
-        <div>
-            <span>Ainda não possui uma conta?</span>
-            <button onClick={() => history.push('/registration')}>Cadastre-se</button>
-        </div>
-        </>
+        <Container>
+            <img src={logo} alt="Logo KenzieHub" />
+            <ContainerLogin>
+                <span>Login</span>
+                <Form onSubmit={handleSubmit(onSubmit)}>
+                    <label htmlFor="email">Email</label>
+                    <input type="text" id="email" placeholder="Email" {...register('email')}/>
+                    <p>{errors.email?.message}</p>
+                    <label htmlFor="password">Senha</label>
+                    <input type="text" id="password" placeholder="Senha" {...register('password')}/>
+                    <p>{errors.password?.message}</p>
+                    <button type="submit">Entrar</button>
+                </Form>
+                <ContainerRegister>
+                    <span>Ainda não possui uma conta?</span>
+                    <button onClick={() => history.push('/registration')}>Cadastre-se</button>
+                </ContainerRegister>
+            </ContainerLogin>
+        </Container>
     )
 }
 export default Login

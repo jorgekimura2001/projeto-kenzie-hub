@@ -5,6 +5,7 @@ import {yupResolver} from '@hookform/resolvers/yup'
 import { api } from "../../services/api"
 import { toast } from 'react-toastify';
 import { useHistory } from "react-router-dom"
+import logo from '../../assets/logo.svg'
 
 function Registration(){
 
@@ -64,7 +65,7 @@ function Registration(){
     return (
         <>
         <header>
-            <img src="" alt="Logo" />
+            <img src={logo} alt="Logo" />
             <button onClick={() => history.push('/')}>Voltar</button>
         </header>
         <Form onSubmit={handleSubmit(onSubmit)}>
