@@ -1,22 +1,23 @@
-import { useHistory } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
+import Header from "../../components/Header"
+import Main from '../../components/Main'
+import { Container } from "./styles"
 
 function Dashboard ({user, setUser}){
 
-    const history = useHistory()
+    let navigate = useNavigate()
 
     function handleLogout(){
         localStorage.clear()
         setUser({})
-        history.push('/')
+        navigate('/login', {replace: true})
     }
 
     return(
-        <div> 
-            <span>
-            Bem vindo à homepage
-            </span>
-            <button onClick={handleLogout}>Sair</button>
-        </div>
+        <Container>
+            <Header onClick={handleLogout} button='Sair' />
+            <Main user={user}/>
+        </Container>
     )
 }
 

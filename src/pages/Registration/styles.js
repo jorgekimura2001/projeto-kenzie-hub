@@ -1,36 +1,57 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-    background-color: black;
     width: 100%;
-    height: 100vh;
     padding: 0 12px;
+   
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: var(--color-grey-0);
 
-    img{
-        margin-bottom: 20px;
-        width: 101px;
-        height: 14px;
-    }
+    color: var(--color-grey-0);
+    background-color: var(--color-grey-4);
+
 `
 
-export const ContainerLogin = styled.div`
+export const ContainerForm = styled.div`
     min-height: 402px;
     width: 296px;
+    padding-top: 33px;
+    padding-bottom: 20px;
+    margin-bottom: 46px;
+
     background-color: var(--color-grey-3);
+
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
+
     box-shadow: 0px 3.20867px 32.0867px -8.02168px rgba(0, 0, 0, 0.25);
     border-radius: 3.20867px;
 
+    div{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        p{
+            color: var(--color-grey-0);
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 17px;
+        }
+        span{
+            color: var(--color-grey-1);
+            font-size: 9.5px;
+            font-weight: 400;
+            margin-bottom: 22px;
+        }
+    }
+
     span{
-        /* margin-bottom: 22px; */
         font-weight: 700;
         font-size: 14.439px;
         line-height: 22px;
@@ -40,11 +61,10 @@ export const ContainerLogin = styled.div`
             font-size: 10px;
             margin-bottom: 18px;
         }
-        input{
+        input, select{
             background-color: var(--color-grey-2);
             height: 38.5px;
             padding-left: 16px;
-            border: 0.9772px solid var(--color-grey-0);
             border-radius: 3.20867px;
             color: var(--color-grey-0);
             font-size: 12px;
@@ -52,12 +72,16 @@ export const ContainerLogin = styled.div`
             width: 80%;
             outline: none;
         }
-        input::placeholder{
+        select{
+            margin-bottom: 16px;
+            color: var(--color-grey-1);
+        }
+        input::placeholder, option{
             color: var(--color-grey-1);
             font-weight: 400;
             font-size: 14px;
         }
-        input:focus{
+        input:focus, select:focus{
             border: 1px solid var(--color-primary-focus);
         }
         input:first-of-type{
@@ -66,6 +90,7 @@ export const ContainerLogin = styled.div`
         input ~ input{
             margin-bottom: 16px;
         }
+
         p{
             font-size: 12px;
             color: var(--color-primary-negative);
@@ -82,44 +107,16 @@ export const ContainerLogin = styled.div`
             width: 80%;
             height: 38.5px;
 
-            border: 1.2182px solid var(--color-primary);
+            border: 1.2182px solid var(--color-primary-disable);
             border-radius: 4.06066px;
 
-            background-color: var(--color-primary);
+            background-color: var(--color-primary-disable);
             color: var(--color-grey-0);
         }
-    }
-
-`
-
-export const ContainerRegister = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-
-    span{
-        color: var(--color-grey-1);
-        font-weight: 600;
-        font-size: 9.5px;
-    }
-    button{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        font-size: 12px;
-        font-weight: 500;
-
-        width: 80%;
-        height: 38.5px;
-
-        border: 1.2182px solid var(--color-grey-1);
-        border-radius: 4.06066px;
-
-        background-color: var(--color-grey-1);
-        color: var(--color-grey-0);
+        button:hover{
+            border: 1.2182px solid var(--color-primary);
+            background-color: var(--color-primary);
+        }
     }
 
 `

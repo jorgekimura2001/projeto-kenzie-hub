@@ -2,15 +2,15 @@ import { useForm } from "react-hook-form"
 import { Form } from "../../components/Form/styles"
 import * as yup from 'yup'
 import {yupResolver} from '@hookform/resolvers/yup'
-import { useHistory } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { api } from "../../services/api"
 import { toast } from 'react-toastify';
 import { Container, ContainerLogin, ContainerRegister } from "./styles.js"
 import logo from '../../assets/logo.svg'
 
-function Login({setUser}){
+function Login({setUser, loading, setLoading}){
 
-    const history = useHistory()
+    let navigate = useNavigate()
 
     const formSchema = yup.object({
         email: yup.string().required('Email é obrigatório').email('Email inválido'),
@@ -21,32 +21,34 @@ function Login({setUser}){
         resolver: yupResolver(formSchema)
     })
 
-    console.log(errors)
-
     function onSubmit(data){
-        console.log(data)
+        setLoading(true)
         api.post('sessions', data)
         .then(res => {
             localStorage.setItem('@token', res.data.token)
             localStorage.setItem('@userId', res.data.user.id)
             setUser(res.data.user)
+            setLoading(false)
             toast.success('Login realizado com sucesso', {
                 position: "top-right",
-                autoClose: 5000,
+                autoClose: 2000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
-                });
-            history.push('/')
-            history.push('/dashboard')
+            });
+            setTimeout(() => {
+                navigate('/dashboard', {replace: true})
+            }, 3000)
+            
         })
         .catch(err => {
             console.log(err)
+            setLoading(false)
             toast.error('Email e/ou senha incorreta', {
                 position: "top-right",
-                autoClose: 5000,
+                autoClose: 3000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -66,13 +68,14 @@ function Login({setUser}){
                     <input type="text" id="email" placeholder="Email" {...register('email')}/>
                     <p>{errors.email?.message}</p>
                     <label htmlFor="password">Senha</label>
-                    <input type="text" id="password" placeholder="Senha" {...register('password')}/>
+                    <input type="password" id="password" placeholder="Senha" {...register('password')}/>
                     <p>{errors.password?.message}</p>
-                    <button type="submit">Entrar</button>
+                    <button type="submit" disabled={loading}>{loading ? 'Carregando...'
+                    : 'Entrar'}</button>
                 </Form>
                 <ContainerRegister>
                     <span>Ainda não possui uma conta?</span>
-                    <button onClick={() => history.push('/registration')}>Cadastre-se</button>
+                    <button onClick={() => navigate('/registration', {replace: true})}>Cadastre-se</button>
                 </ContainerRegister>
             </ContainerLogin>
         </Container>

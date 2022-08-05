@@ -6,6 +6,7 @@ const GlobalStyle = createGlobalStyle`
         --color-primary: #FF577F;
         --color-primary-focus: #FF427F;
         --color-primary-negative: #E83F5B;
+        --color-primary-disable: #59323F;
         --color-grey-4: #121214;
         --color-grey-3: #212529;
         --color-grey-2: #343B41;
@@ -44,6 +45,9 @@ const GlobalStyle = createGlobalStyle`
     blockquote:before, blockquote:after{
         content: '';
         content: none;
+    }
+    button{
+        cursor: pointer;
     }
 `
 
