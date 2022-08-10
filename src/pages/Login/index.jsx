@@ -7,10 +7,14 @@ import { api } from "../../services/api"
 import { toast } from 'react-toastify';
 import { Container, ContainerLogin, ContainerRegister } from "./styles.js"
 import logo from '../../assets/logo.svg'
+import { useContext } from "react"
+import { UserContext } from "../../contexts/user"
 
-function Login({setUser, loading, setLoading}){
+function Login(){
 
-    let navigate = useNavigate()
+    const {setUser, loading, setLoading} = useContext(UserContext)
+
+    const navigate = useNavigate()
 
     const formSchema = yup.object({
         email: yup.string().required('Email é obrigatório').email('Email inválido'),
@@ -25,7 +29,7 @@ function Login({setUser, loading, setLoading}){
         setLoading(true)
         api.post('sessions', data)
         .then(res => {
-            localStorage.setItem('@token', res.data.token)
+            localStorage.setItem('@userToken', res.data.token)
             localStorage.setItem('@userId', res.data.user.id)
             setUser(res.data.user)
             setLoading(false)
@@ -70,9 +74,11 @@ function Login({setUser, loading, setLoading}){
                     <label htmlFor="password">Senha</label>
                     <input type="password" id="password" placeholder="Senha" {...register('password')}/>
                     <p>{errors.password?.message}</p>
-                    <button type="submit" disabled={loading}>{loading ? 'Carregando...'
-                    : 'Entrar'}</button>
+                    <button type="submit">Entrar</button>
                 </Form>
+                {
+                    loading && <span>Carregando ...</span>
+                }
                 <ContainerRegister>
                     <span>Ainda não possui uma conta?</span>
                     <button onClick={() => navigate('/registration', {replace: true})}>Cadastre-se</button>

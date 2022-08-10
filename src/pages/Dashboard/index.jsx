@@ -1,23 +1,37 @@
-import { useNavigate } from "react-router-dom"
+import { useContext } from "react"
+import { Navigate, useNavigate } from "react-router-dom"
 import Header from "../../components/Header"
 import Main from '../../components/Main'
+import { UserContext } from "../../contexts/user"
 import { Container } from "./styles"
 
-function Dashboard ({user, setUser}){
+function Dashboard (){
 
-    let navigate = useNavigate()
+    const {user, setUser, loading} = useContext(UserContext)
+    console.log(loading)
+   
+    const navigate = useNavigate()
 
     function handleLogout(){
         localStorage.clear()
-        setUser({})
+        setUser()
         navigate('/login', {replace: true})
     }
 
     return(
-        <Container>
-            <Header onClick={handleLogout} button='Sair' />
-            <Main user={user}/>
-        </Container>
+        <>
+        { 
+            loading ? <div>Carregando ...</div>
+            :
+            user ? 
+            <Container>
+                <Header onClick={handleLogout} button='Sair'/>
+                <Main user={user}/>
+            </Container>
+            : 
+            <Navigate to='/login' replace/>
+        }
+        </>
     )
 }
 

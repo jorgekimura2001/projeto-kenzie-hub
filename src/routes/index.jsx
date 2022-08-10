@@ -6,16 +6,12 @@ import Registration from "../pages/Registration"
 
 function Router (){
 
-    const [user, setUser] = useState({})
-
-    const [loading, setLoading] = useState(false)
-
     return (
         <Routes>
-            <Route path='/login' element={<Login setUser={setUser} loading={loading} setLoading={setLoading}/>}/>
+            <Route path='/login' element={<Login/>}/>
             <Route path='/registration' element={<Registration/>}/>
-            <Route path="/dashboard" element={<Dashboard user={user} setUser={setUser}/>}/>
-            <Route path="*" element={<Navigate replace to='/login' />}/>
+            <Route path="/dashboard" element={<Dashboard />}/>
+            <Route path="*" element={<Navigate replace to='/login'/>}/>
         </Routes>
     )
 }

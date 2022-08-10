@@ -1,6 +1,10 @@
+import { useContext } from "react"
+import { UserContext } from "../../contexts/user"
 import { Container, ContainerDesk, MainStyled } from "./styles"
 
-function Main({user}){
+function Main(){
+
+    const {user} = useContext(UserContext)
     
     return(
         <MainStyled>
