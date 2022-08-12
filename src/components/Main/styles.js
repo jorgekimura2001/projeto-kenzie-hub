@@ -36,8 +36,8 @@ export const Container = styled.div`
     }
 `
 
-export const ContainerDesk = styled.div`
-    display: none;
+export const ContainerTechs = styled.div`
+    display: flex;
 
     p{
         font-weight: 700;

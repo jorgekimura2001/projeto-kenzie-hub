@@ -1,23 +1,18 @@
 import { useContext } from "react"
-import { Navigate, useNavigate } from "react-router-dom"
+import { Navigate } from "react-router-dom"
 import Header from "../../components/Header"
 import Main from '../../components/Main'
-import { UserContext } from "../../contexts/user"
+import Modal from "../../components/ModalAddTech"
+import { TechContext } from "../../contexts/Providers/TechContext/tech"
+import { UserContext } from "../../contexts/Providers/UserContext/user"
+
 import { Container } from "./styles"
 
 function Dashboard (){
 
-    const {user, setUser, loading} = useContext(UserContext)
-    console.log(loading)
-   
-    const navigate = useNavigate()
-
-    function handleLogout(){
-        localStorage.clear()
-        setUser()
-        navigate('/login', {replace: true})
-    }
-
+    const {user, loading, logOut} = useContext(UserContext)
+    const {modal} = useContext(TechContext)
+    
     return(
         <>
         { 
@@ -25,11 +20,14 @@ function Dashboard (){
             :
             user ? 
             <Container>
-                <Header onClick={handleLogout} button='Sair'/>
-                <Main user={user}/>
+                <Header onClick={logOut} button='Sair'/>
+                <Main />
             </Container>
             : 
             <Navigate to='/login' replace/>
+        }
+        {
+            modal && <Modal/>
         }
         </>
     )

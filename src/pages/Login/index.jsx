@@ -3,16 +3,15 @@ import { Form } from "../../components/Form/styles"
 import * as yup from 'yup'
 import {yupResolver} from '@hookform/resolvers/yup'
 import { useNavigate } from "react-router-dom"
-import { api } from "../../services/api"
-import { toast } from 'react-toastify';
 import { Container, ContainerLogin, ContainerRegister } from "./styles.js"
 import logo from '../../assets/logo.svg'
 import { useContext } from "react"
-import { UserContext } from "../../contexts/user"
+import { UserContext } from "../../contexts/Providers/UserContext/user"
+
 
 function Login(){
 
-    const {setUser, loading, setLoading} = useContext(UserContext)
+    const {loading, logIn} = useContext(UserContext)
 
     const navigate = useNavigate()
 
@@ -26,40 +25,7 @@ function Login(){
     })
 
     function onSubmit(data){
-        setLoading(true)
-        api.post('sessions', data)
-        .then(res => {
-            localStorage.setItem('@userToken', res.data.token)
-            localStorage.setItem('@userId', res.data.user.id)
-            setUser(res.data.user)
-            setLoading(false)
-            toast.success('Login realizado com sucesso', {
-                position: "top-right",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            });
-            setTimeout(() => {
-                navigate('/dashboard', {replace: true})
-            }, 3000)
-            
-        })
-        .catch(err => {
-            console.log(err)
-            setLoading(false)
-            toast.error('Email e/ou senha incorreta', {
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                });
-        })
+       logIn(data)
     }
 
     return (
