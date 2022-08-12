@@ -27,8 +27,9 @@ export const Container = styled.div`
     }
     @media (min-width: 1024px) {
         flex-direction: row;
-        justify-content: space-evenly;
+        justify-content: space-between;
         align-items: center;
+        padding: 0 150px;
 
         p{
             margin-bottom: 0;
@@ -55,12 +56,13 @@ export const ContainerTechs = styled.div`
     }
 
     @media (min-width: 1024px) {
-        display: flex;
         flex-direction: column;
         align-items: flex-start;
+        justify-content: space-between;
+        width: 100%;
+        padding: 0 150px;
         margin-top: 37px;
 
-        
     }
 `
 
@@ -92,6 +94,15 @@ export const ContainerNoneTechs = styled.div`
         font-size: 12.8347px;
         line-height: 21px;
     }
+    @media (min-width: 1024px) {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-between;
+        width: 100%;
+        padding: 0 150px;
+        margin-top: 37px;
+    }
+
 `
 
 export const MainStyled = styled.main`
@@ -100,6 +111,7 @@ export const MainStyled = styled.main`
     background-color: var(--color-grey-4);
 
     @media (min-width: 1024px){
+        height: initial;
         display: flex;
         flex-direction: column;
         align-items: center;

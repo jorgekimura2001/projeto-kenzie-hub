@@ -30,8 +30,10 @@ export const Container = styled.div`
         }
 
         @media (min-width: 1024px) {
-            width: 775px;
             margin-top: 0;
         }
     }
+    @media (min-width: 1024px) {
+            padding: initial;
+        }
 `

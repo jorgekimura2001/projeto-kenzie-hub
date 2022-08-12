@@ -30,6 +30,7 @@ export const HeaderStyled = styled.header`
         background-color: var(--color-grey-3);
     }
     @media (min-width: 1024px) {
-        justify-content: space-around;
+        justify-content: space-between;
+        padding: 0 150px;
     }
 `
