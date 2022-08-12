@@ -1,21 +1,24 @@
-import { useContext } from "react"
-import { FaTrashAlt } from 'react-icons/fa'
-import { TechContext } from "../../contexts/Providers/TechContext/tech"
+import { useState } from "react"
+import { BsPencilFill } from 'react-icons/bs'
 import ModalEdit from "../ModalEditTech"
+
+import { Container } from "./styles"
 
 export default function CardTech({title, status, idTech}){
 
-    const {setModalEditTech, modalEditTech} = useContext(TechContext)
+    const [modalEdit, setModalEdit] = useState(false)
 
     return (
         <>
-        <div>
-            <p>{title}</p>
-            <p>{status}</p>
-            <button onClick={() => setModalEditTech(true)}><FaTrashAlt/></button>
-        </div>
+        <Container>
+            <div className="tech-info">
+                <p>{title}</p>
+                <p>{status}</p>
+            </div>
+            <button className="button__edit-tech" onClick={() => setModalEdit(true)}><BsPencilFill/></button>
+        </Container>
         {
-            modalEditTech && <ModalEdit title={title} idTech={idTech}/>    
+            modalEdit && <ModalEdit title={title} idTech={idTech} setModalEdit={setModalEdit}/>    
         }
         </>
     )

@@ -3,7 +3,7 @@ import Dashboard from "../pages/Dashboard"
 import Login from "../pages/Login"
 import Registration from "../pages/Registration"
 
-function Router (){
+export default function Router (){
 
     return (
         <Routes>
@@ -14,5 +14,3 @@ function Router (){
         </Routes>
     )
 }
-
-export default Router

@@ -1,23 +1,23 @@
-import { useContext } from 'react'
-
-import { TechContext } from '../../contexts/Providers/TechContext/tech'
-import { VscDiffAdded} from 'react-icons/vsc'
-import Modal from '../ModalAddTech'
+import { Container } from './styles'
 import CardTech from '../CardTech'
+import { TechContext } from '../../contexts/Providers/TechContext/tech'
+import { useContext } from 'react'
+import { IoMdAdd} from 'react-icons/io'
 
-function Techs(){
+export default function Techs(){
 
     const {techs, setModalAddTech} = useContext(TechContext)
    
     return (
-        <div>
-            <p>Tecnologias</p>
-            <button onClick={() => setModalAddTech(true)}><VscDiffAdded/></button>
+        <Container>
+            <div className='header-tech'>
+                <h3>Tecnologias</h3>
+                <button onClick={() => setModalAddTech(true)}><IoMdAdd/></button>
+            </div>
             {
-                techs.map(({title, status, id}) => <CardTech key={id} title={title} status={status} idTech={id}/>)
+                techs.map(({title, status, id}) => {
+                return <CardTech key={id} title={title} status={status} idTech={id}/>})
             }
-        
-        </div>
+        </Container>
     )
 }
-export default Techs

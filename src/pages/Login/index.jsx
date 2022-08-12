@@ -1,15 +1,15 @@
-import { useForm } from "react-hook-form"
 import { Form } from "../../components/Form/styles"
+import { Container, ContainerLogin, ContainerRegister } from "./styles.js"
+import logo from '../../assets/logo.svg'
+import { UserContext } from "../../contexts/Providers/UserContext/user"
+import { useForm } from "react-hook-form"
 import * as yup from 'yup'
 import {yupResolver} from '@hookform/resolvers/yup'
 import { useNavigate } from "react-router-dom"
-import { Container, ContainerLogin, ContainerRegister } from "./styles.js"
-import logo from '../../assets/logo.svg'
 import { useContext } from "react"
-import { UserContext } from "../../contexts/Providers/UserContext/user"
 
 
-function Login(){
+export default function Login(){
 
     const {loading, logIn} = useContext(UserContext)
 
@@ -53,4 +53,3 @@ function Login(){
         </Container>
     )
 }
-export default Login

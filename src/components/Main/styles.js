@@ -64,8 +64,40 @@ export const ContainerTechs = styled.div`
     }
 `
 
+export const ContainerNoneTechs = styled.div`
+    display: flex;
+    flex-direction: column;
+    padding: 0 13px;
+
+    span{
+        margin-top: 16px;
+        margin-bottom: 16px;
+    }
+    button{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background-color: var(--color-primary);
+        color: var(--color-grey-0);
+
+        padding: 0px 22.3336px;
+        width: 100%;
+        height: 35.5px;
+
+        border: 0.9772px solid var(--color-primary);
+        border-radius: 4.06066px;
+
+        font-weight: 500;
+        font-size: 12.8347px;
+        line-height: 21px;
+    }
+`
+
 export const MainStyled = styled.main`
     width: 100%;
+    height: 100vh;
+    background-color: var(--color-grey-4);
 
     @media (min-width: 1024px){
         display: flex;

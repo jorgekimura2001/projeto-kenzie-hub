@@ -1,8 +1,7 @@
 import logo from '../../assets/logo.svg'
 import { HeaderStyled } from './styles'
 
-function Header ({onClick, button}){
-
+export default function Header ({onClick, button}){
     return (
         <HeaderStyled>
             <img src={logo} alt="Logo KenzieHub" />
@@ -10,5 +9,3 @@ function Header ({onClick, button}){
         </HeaderStyled>
     )
 }
-
-export default Header

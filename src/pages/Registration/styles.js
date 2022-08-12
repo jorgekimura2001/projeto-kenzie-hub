@@ -90,11 +90,10 @@ export const ContainerForm = styled.div`
         input ~ input{
             margin-bottom: 16px;
         }
-
         p{
-            font-size: 12px;
+            font-size: 10px;
             color: var(--color-primary-negative);
-            margin-bottom: 10px;
+            margin: 0 20px 10px 20px;
         }
         button{
             display: flex;
@@ -118,5 +117,4 @@ export const ContainerForm = styled.div`
             background-color: var(--color-primary);
         }
     }
-
 `

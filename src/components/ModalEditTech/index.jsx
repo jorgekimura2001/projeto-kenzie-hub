@@ -1,26 +1,32 @@
-import { useEffect, useRef, useContext } from "react";
+import { ContainerModalEdit } from "./styles";
 import { TechContext } from "../../contexts/Providers/TechContext/tech";
-import { ContainerModal } from "./styles";
+import { useEffect, useRef, useContext } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { Form } from "../Form/styles";
+import {yupResolver} from '@hookform/resolvers/yup'
 
-function ModalEdit({title, idTech}) {
+export default function ModalEdit({title, idTech, setModalEdit}) {
 
-  const { setModalEditTech } = useContext(TechContext);
+  const {uptadeTech, removeTech} = useContext(TechContext)
 
-  const { register, handleSubmit } = useForm();
+  const formSchema = yup.object({
+    status: yup.string().required('Status da Tecnologia é obrigatório')
+  })
 
-  const modalRef = useRef();
+  const { register, handleSubmit, formState: {errors} } = useForm({
+    resolver: yupResolver(formSchema)
+  });
+
+  const modalEditRef = useRef();
 
   useEffect(() => {
     function handleOutClick(event) {
-      if (!modalRef.current.contains(event.target)) {
-        setModalEditTech(false);
+      if (!modalEditRef.current.contains(event.target)) {
+        setModalEdit(false);
       }
     }
-
     document.addEventListener("mousedown", handleOutClick);
     return () => {
       document.removeEventListener("mousedown", handleOutClick);
@@ -28,15 +34,18 @@ function ModalEdit({title, idTech}) {
   }, []);
 
   function onSubmit(data){
-    console.log(data)
+    uptadeTech(idTech, data)
+    setTimeout(() => {
+      setModalEdit(false)
+    }, 2000);
   }
 
   return (
-    <ContainerModal>
-      <div className="modal-box" ref={modalRef}>
-        <div>
-          <p>Tecnologia Detalhes</p>
-          <button onClick={() => setModalEditTech(false)}>
+    <ContainerModalEdit>
+      <div className="modal-box" ref={modalEditRef}>
+        <div className="header-modal">
+          <h3>Tecnologia Detalhes</h3>
+          <button onClick={() => setModalEdit(false)}>
             <AiOutlineClose />
           </button>
         </div>
@@ -47,22 +56,23 @@ function ModalEdit({title, idTech}) {
             type="text"
             id="title-tech"
             value={title}
-            placeholder="Digite uma tecnologia"
-            {...register("title")}
+            disabled
+            onChange={() => {}}
           />
 
           <label htmlFor="status-tech">Selecionar status</label>
           <select id="status-tech" {...register("status")}>
             <option value="">Selecionar o status da tecnologia</option>
             <option value="Iniciante">Iniciante</option>
-            <option value="Intermediario">Intermediário</option>
-            <option value="Avancado">Avançado</option>
+            <option value="Intermediário">Intermediário</option>
+            <option value="Avançado">Avançado</option>
           </select>
-
-        <button type="submit">Cadastrar Tecnologia</button>
+          <p>{errors.status?.message}</p>
+          
+          <button type="submit">Atualizar Tecnologia</button>
         </Form>
+          <button className="button__remove-tech" onClick={() => removeTech(idTech)}>Excluir</button>
       </div>
-    </ContainerModal>
+    </ContainerModalEdit>
   );
 }
-export default ModalEdit;

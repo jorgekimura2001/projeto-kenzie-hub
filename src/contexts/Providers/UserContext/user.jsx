@@ -1,8 +1,8 @@
-import { createContext, useContext, useEffect, useState} from "react";
 import { api } from "../../../services/api";
+import { TechContext } from "../TechContext/tech";
+import { createContext, useContext, useEffect, useState} from "react";
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom"
-import { TechContext } from "../TechContext/tech";
 
 export const UserContext = createContext({})
 
@@ -26,6 +26,7 @@ export default function UserProvider({children}){
                     const {data} = await api.get(`profile`)
                     setUser(data)
                     setLoading(true)
+                    setTechs(data.techs)
                 } catch (error) {
                     console.log(error)
                 } 

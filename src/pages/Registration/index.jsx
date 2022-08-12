@@ -1,11 +1,11 @@
-import { useForm } from "react-hook-form";
 import { Form } from "../../components/Form/styles";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
 import Header from "../../components/Header";
 import { Container, ContainerForm } from "./styles";
-import { useContext } from "react";
 import { UserContext } from "../../contexts/Providers/UserContext/user";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useContext } from "react";
 
 function Registration() {
   const { registration, handleToLoginPage } = useContext(UserContext);
@@ -16,11 +16,7 @@ function Registration() {
     password: yup
       .string()
       .required("Senha é obrigatória")
-      .matches("[A-Z]", "Deve conter ao menos 1 letra maiúscula")
-      .matches("([a-z])", "Deve conter ao menos 1 letra minúscula")
-      .matches("([0-9])", "Deve conter ao menos 1 número")
-      .matches("(W)|_", "Deve conter ao menos 1 caracter especial")
-      .matches(".{8,}", "Deve conter ao menos 8 caracteres"),
+      .matches("^(?=.*[A-Z])(?=.*[!#@$%&])(?=.*[0-9])(?=.*[a-z]).{6,15}$", 'Deve conter uma letra maiscúla, uma letra minúscula, 1 caracter especial, um número e no mínimo 6 caracteres '),
     confirmPassword: yup
       .string()
       .required("Confirmação de senha é obrigatória")

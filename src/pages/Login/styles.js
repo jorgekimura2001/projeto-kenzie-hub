@@ -30,7 +30,6 @@ export const ContainerLogin = styled.div`
     border-radius: 3.20867px;
 
     span{
-        /* margin-bottom: 22px; */
         font-weight: 700;
         font-size: 14.439px;
         line-height: 22px;
@@ -121,5 +120,4 @@ export const ContainerRegister = styled.div`
         background-color: var(--color-grey-1);
         color: var(--color-grey-0);
     }
-
 `

@@ -1,14 +1,13 @@
-import { useContext } from "react"
-import { Navigate } from "react-router-dom"
+import { Container, ContainerLoad } from "./styles"
 import Header from "../../components/Header"
 import Main from '../../components/Main'
 import Modal from "../../components/ModalAddTech"
 import { TechContext } from "../../contexts/Providers/TechContext/tech"
 import { UserContext } from "../../contexts/Providers/UserContext/user"
+import { useContext } from "react"
+import { Navigate } from "react-router-dom"
 
-import { Container } from "./styles"
-
-function Dashboard (){
+export default function Dashboard (){
 
     const {user, loading, logOut} = useContext(UserContext)
     const {modal} = useContext(TechContext)
@@ -16,7 +15,7 @@ function Dashboard (){
     return(
         <>
         { 
-            loading ? <div>Carregando ...</div>
+            loading ? <ContainerLoad><span>Carregando ...</span></ContainerLoad>
             :
             user ? 
             <Container>
@@ -32,5 +31,3 @@ function Dashboard (){
         </>
     )
 }
-
-export default Dashboard
