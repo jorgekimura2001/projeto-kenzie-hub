@@ -9,8 +9,10 @@ export default function TechProvider ({children}){
     const [techs, setTechs] = useState([])
     const [loading, setLoading] = useState(false)
     const [modalAddTech, setModalAddTech] = useState(false)
+    const token = localStorage.getItem('@userToken')
     
     async function addTech(data){
+        api.defaults.headers.authorization = `Bearer ${token}`
         setLoading(true)
         try {
             const techAdded = await api.post('users/techs', data)
@@ -42,6 +44,7 @@ export default function TechProvider ({children}){
     }
 
     async function uptadeTech(id, data){
+        api.defaults.headers.authorization = `Bearer ${token}`
         setLoading(true)
         try {
             const techUpdated = await api.put(`users/techs/${id}`, data)
@@ -73,6 +76,7 @@ export default function TechProvider ({children}){
     }
 
     async function removeTech(id){
+        api.defaults.headers.authorization = `Bearer ${token}`
         setLoading(true)
         try {
             await api.delete(`users/techs/${id}`)

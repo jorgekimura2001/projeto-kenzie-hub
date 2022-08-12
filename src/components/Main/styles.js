@@ -102,12 +102,11 @@ export const ContainerNoneTechs = styled.div`
         padding: 0 150px;
         margin-top: 37px;
     }
-
 `
 
 export const MainStyled = styled.main`
     width: 100%;
-    height: 100vh;
+    /* height: 100vh; */
     background-color: var(--color-grey-4);
 
     @media (min-width: 1024px){
