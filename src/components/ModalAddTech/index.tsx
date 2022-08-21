@@ -1,40 +1,52 @@
 import { ContainerModal } from "./styles";
-import { TechContext } from "../../contexts/Providers/TechContext/tech";
+import { useTech } from "../../contexts/Providers/TechContext/tech";
 import { AiOutlineClose } from "react-icons/ai";
-import { useEffect, useRef, useContext } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { Form } from "../Form/styles";
 import {yupResolver} from '@hookform/resolvers/yup'
 
-export default function Modal() {
-  const { setModalAddTech, loading, addTech } = useContext(TechContext);
+interface IForm{
+  title: string;
+  status: string;
+}
+
+interface IModalProps{
+  setModalAddTech: Dispatch<SetStateAction<boolean>>
+}
+
+export default function Modal({setModalAddTech}: IModalProps) {
+  const { loading, addTech } = useTech();
  
   const formSchema = yup.object({
     title: yup.string().required('Nome da Tecnologia é obrigatório'),
     status: yup.string().required('Status da Tecnologia é obrigatório')
   })
 
-  const { register, handleSubmit, formState: {errors} } = useForm({
+  const { register, handleSubmit, formState: {errors} } = useForm<IForm>({
     resolver: yupResolver(formSchema)
   });
 
-  const modalRef = useRef();
-
+  const modalRef = useRef<HTMLDivElement>(null);
+ 
   useEffect(() => {
-    function handleOutClick(event) {
-      if (!modalRef.current.contains(event.target)) {
-        setModalAddTech(false);
+      function handleOutClick(event: MouseEvent) {
+          if (!modalRef.current?.contains(event.target as HTMLDivElement)) {
+            setModalAddTech(false);
+          }
       }
-    }
-    document.addEventListener("mousedown", handleOutClick);
-    return () => {
-      document.removeEventListener("mousedown", handleOutClick);
-    };
+      document.addEventListener("mousedown", handleOutClick);
+      return () => {
+        document.removeEventListener("mousedown", handleOutClick);
+      };
   }, []);
 
-  function onSubmit(data) {
+  function onSubmit(data: IForm) {
     addTech(data)
+    setTimeout(() => {
+      setModalAddTech(false)
+    }, 2000);
   }
 
   return (
@@ -60,15 +72,15 @@ export default function Modal() {
           <select id="status-tech" {...register("status")}>
             <option value="">Selecione o status da tecnologia</option>
             <option value="Iniciante">Iniciante</option>
-            <option value="Intermediario">Intermediário</option>
-            <option value="Avancado">Avançado</option>
+            <option value="Intermediário">Intermediário</option>
+            <option value="Avançado">Avançado</option>
           </select>
           <p>{errors.status?.message}</p>
 
         <button type="submit">Cadastrar Tecnologia</button>
         </Form>
         {
-          loading && <span>Carregando...</span>
+          loading && <span>Carregando ...</span>
         }
       </div>
     </ContainerModal>

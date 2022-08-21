@@ -1,17 +1,20 @@
 import { Form } from "../../components/Form/styles"
-import { Container, ContainerLogin, ContainerRegister } from "./styles.js"
+import { Container, ContainerLogin, ContainerRegister } from "./styles"
 import logo from '../../assets/logo.svg'
-import { UserContext } from "../../contexts/Providers/UserContext/user"
+import { useUser } from "../../contexts/Providers/UserContext/user"
 import { useForm } from "react-hook-form"
 import * as yup from 'yup'
 import {yupResolver} from '@hookform/resolvers/yup'
 import { useNavigate } from "react-router-dom"
-import { useContext } from "react"
 
+interface IForm{
+    email: string;
+    password: string;
+}
 
 export default function Login(){
 
-    const {loading, logIn} = useContext(UserContext)
+    const {loading, logIn} = useUser()
 
     const navigate = useNavigate()
 
@@ -20,11 +23,11 @@ export default function Login(){
         password: yup.string().required('Senha é obrigatória')
     })
 
-    const {register, handleSubmit, formState: {errors}} = useForm({
+    const {register, handleSubmit, formState: {errors}} = useForm<IForm>({
         resolver: yupResolver(formSchema)
     })
 
-    function onSubmit(data){
+    function onSubmit(data: IForm){
        logIn(data)
     }
 

@@ -1,18 +1,54 @@
 import { api } from "../../../services/api";
-import { createContext, useState } from "react";
+import { createContext, useState, ReactNode, Dispatch, SetStateAction, useContext } from "react";
 import { toast } from 'react-toastify';
 
-export const TechContext = createContext({})
+interface ITechProps{
+    children: ReactNode;
+}
 
-export default function TechProvider ({children}){
+interface ITechData{
+    techs: ITech[]; 
+    setTechs: Dispatch<SetStateAction<ITech[]>>;
+    addTech: (data: ITech) => void; 
+    modalAddTech: boolean; 
+    setModalAddTech: Dispatch<SetStateAction<boolean>>; 
+    loading: boolean; 
+    uptadeTech: ({id, data}: IUpdateTech) => void; 
+    removeTech: ({id}:IRemovedTech) => void; 
+}
 
-    const [techs, setTechs] = useState([])
+interface ITech{
+    id?: string;
+    title: string;
+    status: string;
+}
+
+interface IUpdateTech{
+    id?: string;
+    data: ITechUp;
+}
+
+interface IRemovedTech{
+    id?: string;
+}
+
+type ITechUp = Omit<ITech, 'title' | 'id'> 
+
+export const TechContext = createContext<ITechData>({} as ITechData)
+
+export function useTech() { return useContext(TechContext) }
+
+export default function TechProvider ({children}: ITechProps){
+
+    const [techs, setTechs] = useState<ITech[]>([])
+    console.log(techs)
     const [loading, setLoading] = useState(false)
     const [modalAddTech, setModalAddTech] = useState(false)
+
     const token = localStorage.getItem('@userToken')
     
-    async function addTech(data){
-        api.defaults.headers.authorization = `Bearer ${token}`
+    async function addTech(data: ITech){
+        api.defaults.headers.common['Authorization'] = `Bearer ${token}`
         setLoading(true)
         try {
             const techAdded = await api.post('users/techs', data)
@@ -43,8 +79,9 @@ export default function TechProvider ({children}){
         }
     }
 
-    async function uptadeTech(id, data){
-        api.defaults.headers.authorization = `Bearer ${token}`
+    async function uptadeTech({id, data}: IUpdateTech){
+        
+        api.defaults.headers.common['Authorization'] = `Bearer ${token}`
         setLoading(true)
         try {
             const techUpdated = await api.put(`users/techs/${id}`, data)
@@ -75,8 +112,8 @@ export default function TechProvider ({children}){
         }
     }
 
-    async function removeTech(id){
-        api.defaults.headers.authorization = `Bearer ${token}`
+    async function removeTech({id}:IRemovedTech){
+        api.defaults.headers.common['Authorization'] = `Bearer ${token}`
         setLoading(true)
         try {
             await api.delete(`users/techs/${id}`)

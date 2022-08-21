@@ -4,7 +4,13 @@ import ModalEdit from "../ModalEditTech"
 
 import { Container } from "./styles"
 
-export default function CardTech({title, status, idTech}){
+interface ICardTechProps{
+    title: string;
+    status: string;
+    idTech?: string;
+}
+
+export default function CardTech({title, status, idTech}: ICardTechProps){
 
     const [modalEdit, setModalEdit] = useState(false)
 

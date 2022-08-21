@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+interface IIsLoading{
+  isLoading: boolean;
+}
+
 export const ContainerModalEdit = styled.div`
   position: fixed;
   width: 100%;
@@ -42,7 +46,7 @@ export const ContainerModalEdit = styled.div`
     background-color: white;
     border-radius: 8px;
     width: 90%;
-    height: 300px;
+    height: 320px;
     margin: 0 auto;
     border-radius: 3.20867px;
     background-color: var(--color-grey-3);
@@ -77,7 +81,14 @@ export const ContainerModalEdit = styled.div`
       margin-top: 20px;
       background: var(--color-grey-3);
       width: 100%;
-      height: 190px;
+      height: 210px;
+
+      .uptade__load{
+        color: var(--color-grey-1);
+        font-weight: 600;
+        font-size: 9.5px;
+        margin-top: 0;
+      } 
 
       label {
         color: var(--color-grey-0);
@@ -106,7 +117,7 @@ export const ContainerModalEdit = styled.div`
         cursor: none;
       }
       select {
-        margin-bottom: 16px;
+        margin-bottom: ${({isLoading}: IIsLoading) => isLoading ? '0px' : '16px'};
       }
       input::placeholder,
       option {
@@ -141,11 +152,11 @@ export const ContainerModalEdit = styled.div`
             line-height: 1;
             font-size: 10px;
             color: var(--color-primary-negative);
-            margin-bottom: 8px;
+            margin-bottom: ${({isLoading}: IIsLoading) => isLoading ? '0px' : '8px'}
             }
     }
     @media (min-width: 1024px) {
             width: 369px;
         }
   }
-`;
+`

@@ -1,14 +1,23 @@
 import { Form } from "../../components/Form/styles";
 import Header from "../../components/Header";
 import { Container, ContainerForm } from "./styles";
-import { UserContext } from "../../contexts/Providers/UserContext/user";
+import { useUser } from "../../contexts/Providers/UserContext/user";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useContext } from "react";
 
-function Registration() {
-  const { registration, handleToLoginPage } = useContext(UserContext);
+interface IForm{
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword?: string;
+  bio: string;
+  contact: string;
+  course_module: string;
+}
+
+export default function Registration() {
+  const { registration, handleToLoginPage } = useUser();
 
   const formSchema = yup.object({
     name: yup.string().required("Nome é obrigatório"),
@@ -16,7 +25,7 @@ function Registration() {
     password: yup
       .string()
       .required("Senha é obrigatória")
-      .matches("^(?=.*[A-Z])(?=.*[!#@$%&])(?=.*[0-9])(?=.*[a-z]).{6,15}$", 'Deve conter uma letra maiscúla, uma letra minúscula, 1 caracter especial, um número e no mínimo 6 caracteres '),
+      .matches(/^(?=.*[A-Z])(?=.*[!#@$%&])(?=.*[0-9])(?=.*[a-z]).{6,15}$/, 'Deve conter uma letra maiscúla, uma letra minúscula, 1 caracter especial, um número e no mínimo 6 caracteres '),
     confirmPassword: yup
       .string()
       .required("Confirmação de senha é obrigatória")
@@ -33,11 +42,11 @@ function Registration() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<IForm>({
     resolver: yupResolver(formSchema),
   });
 
-  function onSubmit(data) {
+  function onSubmit(data: IForm) {
     registration(data);
   }
 
@@ -121,4 +130,3 @@ function Registration() {
     </Container>
   );
 }
-export default Registration;

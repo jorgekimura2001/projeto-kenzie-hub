@@ -1,14 +1,15 @@
-import { useContext} from "react"
 import Modal from "../ModalAddTech"
-import { UserContext } from "../../contexts/Providers/UserContext/user"
+import { useUser } from "../../contexts/Providers/UserContext/user"
 import { Container, ContainerNoneTechs, ContainerTechs, MainStyled } from "./styles"
-import { TechContext } from "../../contexts/Providers/TechContext/tech"
+import { useTech } from "../../contexts/Providers/TechContext/tech"
 import Techs from "../Techs"
+import { useState } from "react"
 
 export default function Main(){
 
-    const {user} = useContext(UserContext)
-    const {techs, setModalAddTech, modalAddTech} = useContext(TechContext)
+    const {user} = useUser()
+    const {techs} = useTech()
+    const [modalAddTech, setModalAddTech] = useState(false)
    
     return(
         <MainStyled>
@@ -25,10 +26,10 @@ export default function Main(){
                     <button onClick={() => setModalAddTech(true)}>Clique me</button>
                     </ContainerNoneTechs>
                     :
-                    <Techs/>
+                    <Techs setModalAddTech={setModalAddTech}/>
                 }
                 {
-                    modalAddTech && <Modal/>
+                    modalAddTech && <Modal setModalAddTech={setModalAddTech}/>
                 }
             </ContainerTechs>
         </MainStyled>

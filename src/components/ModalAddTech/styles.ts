@@ -123,6 +123,9 @@ export const ContainerModal = styled.div`
             font-size: 12px;
             margin: 0 auto;
             margin-bottom: 10px;
+            color: var(--color-grey-1);
+            font-weight: 600;
+            font-size: 9.5px;
         }
 
         @media (min-width: 1024px) {
