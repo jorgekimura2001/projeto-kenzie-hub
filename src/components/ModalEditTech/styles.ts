@@ -1,9 +1,5 @@
 import styled from "styled-components";
 
-interface IIsLoading{
-  isLoading: boolean;
-}
-
 export const ContainerModalEdit = styled.div`
   position: fixed;
   width: 100%;
@@ -46,7 +42,7 @@ export const ContainerModalEdit = styled.div`
     background-color: white;
     border-radius: 8px;
     width: 90%;
-    height: 320px;
+    height: 330px;
     margin: 0 auto;
     border-radius: 3.20867px;
     background-color: var(--color-grey-3);
@@ -77,18 +73,18 @@ export const ContainerModalEdit = styled.div`
       }
     }
 
+    .uptade__load{
+      color: var(--color-grey-1);
+      font-weight: 600;
+      font-size: 9.5px;
+      margin: 0 auto;
+    } 
+
     form {
       margin-top: 20px;
       background: var(--color-grey-3);
       width: 100%;
-      height: 210px;
-
-      .uptade__load{
-        color: var(--color-grey-1);
-        font-weight: 600;
-        font-size: 9.5px;
-        margin-top: 0;
-      } 
+      height: 190px;
 
       label {
         color: var(--color-grey-0);
@@ -98,6 +94,7 @@ export const ContainerModalEdit = styled.div`
         margin-bottom: 18px;
         width: 90%;
       }
+
       input,
       select {
         background-color: var(--color-grey-2);
@@ -112,23 +109,28 @@ export const ContainerModalEdit = styled.div`
         border-radius: 3.20867px;
         outline: none;
       }
+
       input {
         margin-bottom: 21px;
         cursor: none;
       }
+
       select {
-        margin-bottom: ${({isLoading}: IIsLoading) => isLoading ? '0px' : '16px'};
+        margin-bottom: 16px;
       }
+
       input::placeholder,
       option {
         color: var(--color-grey-1);
         font-weight: 400;
         font-size: 14px;
       }
+
       input:focus,
       select:focus {
         border: 1px solid var(--color-primary-focus);
       }
+
       button {
         display: flex;
         align-items: center;
@@ -148,13 +150,15 @@ export const ContainerModalEdit = styled.div`
         font-size: 12.8347px;
         line-height: 21px;
       }
+
       p{
             line-height: 1;
             font-size: 10px;
             color: var(--color-primary-negative);
-            margin-bottom: ${({isLoading}: IIsLoading) => isLoading ? '0px' : '8px'}
+            margin-bottom: 8px
             }
     }
+    
     @media (min-width: 1024px) {
             width: 369px;
         }

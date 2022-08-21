@@ -51,7 +51,7 @@ export default function ModalEdit({title, idTech, setModalEdit}: IModalEditProps
   }
 
   return (
-    <ContainerModalEdit isLoading={loading}>
+    <ContainerModalEdit>
       <div className="modal-box" ref={modalEditRef}>
         <div className="header-modal">
           <h3>Tecnologia Detalhes</h3>
@@ -78,10 +78,10 @@ export default function ModalEdit({title, idTech, setModalEdit}: IModalEditProps
             <option value="Avançado">Avançado</option>
           </select>
           <p>{errors.status?.message}</p>
-          {loading && <span className="uptade__load">Carregando ...</span>}
           <button type="submit">Atualizar Tecnologia</button>
         </Form>
           <button className="button__remove-tech" onClick={() => removeTech({id: idTech})}>Excluir</button>
+          {loading && <span className="uptade__load">Carregando ...</span>}
       </div>
     </ContainerModalEdit>
   );
