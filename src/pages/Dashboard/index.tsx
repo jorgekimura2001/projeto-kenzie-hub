@@ -1,8 +1,6 @@
 import { Container, ContainerLoad } from "./styles"
 import Header from "../../components/Header"
 import Main from '../../components/Main'
-import Modal from "../../components/ModalAddTech"
-import { useTech } from "../../contexts/Providers/TechContext/tech"
 import {  useUser } from "../../contexts/Providers/UserContext/user"
 import { Navigate } from "react-router-dom"
 

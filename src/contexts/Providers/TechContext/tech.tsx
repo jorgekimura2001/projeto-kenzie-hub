@@ -41,7 +41,6 @@ export function useTech() { return useContext(TechContext) }
 export default function TechProvider ({children}: ITechProps){
 
     const [techs, setTechs] = useState<ITech[]>([])
-    console.log(techs)
     const [loading, setLoading] = useState(false)
     const [modalAddTech, setModalAddTech] = useState(false)
 
