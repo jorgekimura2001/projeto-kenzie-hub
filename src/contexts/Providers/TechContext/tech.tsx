@@ -10,8 +10,6 @@ interface ITechData{
     techs: ITech[]; 
     setTechs: Dispatch<SetStateAction<ITech[]>>;
     addTech: (data: ITech) => void; 
-    modalAddTech: boolean; 
-    setModalAddTech: Dispatch<SetStateAction<boolean>>; 
     loading: boolean; 
     uptadeTech: ({id, data}: IUpdateTech) => void; 
     removeTech: ({id}:IRemovedTech) => void; 
@@ -42,7 +40,6 @@ export default function TechProvider ({children}: ITechProps){
 
     const [techs, setTechs] = useState<ITech[]>([])
     const [loading, setLoading] = useState(false)
-    const [modalAddTech, setModalAddTech] = useState(false)
 
     const token = localStorage.getItem('@userToken')
     
@@ -52,7 +49,6 @@ export default function TechProvider ({children}: ITechProps){
         try {
             const techAdded = await api.post('users/techs', data)
             setLoading(false)
-            setModalAddTech(false)
             toast.success('Tecnologia adicionada com sucesso!', {
                 position: "top-right",
                 autoClose: 1000,
@@ -144,7 +140,7 @@ export default function TechProvider ({children}: ITechProps){
     }
 
     return (
-        <TechContext.Provider value={{techs, setTechs, addTech, modalAddTech, setModalAddTech, loading, uptadeTech, removeTech}}>
+        <TechContext.Provider value={{techs, setTechs, addTech, loading, uptadeTech, removeTech}}>
             {children}
         </TechContext.Provider>
     )
